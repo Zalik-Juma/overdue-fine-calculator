@@ -36,7 +36,8 @@ public class LibraryFineCalculator {
         
         // Calculate fine
         int fineRate = getFineRate(daysOverdue);
-        int fineAmount = (daysOverdue > 0) ? fineRate : 0;
+        // Calculate total fine by multiplying daysOverdue by fineRate
+        int fineAmount = (int) (daysOverdue * fineRate); 
         
         // Display results
         displayResults(bookID, dueDate, returnDate, daysOverdue, fineRate, fineAmount);
@@ -70,11 +71,20 @@ public class LibraryFineCalculator {
         System.out.println("Due Date: " + dueDate);
         System.out.println("Return Date: " + returnDate);
         System.out.println("Days Overdue: " + daysOverdue);
-        System.out.println("Fine Rate: sh " + fineRate + " per day");
-        System.out.println("Fine Amount: sh " + fineAmount);
+        
+        // Only display the fine rate if a fine is applicable
+        if (fineAmount > 0) {
+            System.out.println("Fine Rate: sh " + fineRate + " per day");
+        } else {
+            System.out.println("Fine Rate: sh 0 per day"); // Consistency for display
+        }
+        
+        System.out.println("Total Fine Amount: sh " + fineAmount);
 
         if (daysOverdue == 0) {
             System.out.println("Status: Book returned on time - No fine!");
         } else {
             System.out.println("Status: Overdue - Fine applied");
         }
+    }
+}
